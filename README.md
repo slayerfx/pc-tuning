@@ -1,5 +1,9 @@
 # pc-tuning
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+[![PowerShell 5.1](https://img.shields.io/badge/PowerShell-5.1-5391FE.svg)](#requirements)
+[![Windows 10 | 11](https://img.shields.io/badge/Windows-10%20%7C%2011-0078D4.svg)](#requirements)
+
 **Windows, BIOS and hardware tuning for a desktop gaming and creation PC. Every Windows setting can be checked, re-applied and undone.**
 
 *Version française : [README.fr.md](README.fr.md)*

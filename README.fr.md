@@ -1,5 +1,9 @@
 # pc-tuning
 
+[![Licence : MIT](https://img.shields.io/badge/Licence-MIT-green.svg)](LICENSE)
+[![PowerShell 5.1](https://img.shields.io/badge/PowerShell-5.1-5391FE.svg)](#prérequis)
+[![Windows 10 | 11](https://img.shields.io/badge/Windows-10%20%7C%2011-0078D4.svg)](#prérequis)
+
 **Réglages de Windows, du BIOS et du matériel pour un PC de bureau de jeu et de création. Chaque réglage Windows peut être vérifié, réappliqué et annulé.**
 
 *English version: [README.md](README.md)*
