@@ -9,7 +9,9 @@
 
 *Version française : [README.fr.md](README.fr.md)*
 
-Most "optimizers" apply a pile of tweaks once and leave you guessing. `pc-tuning` keeps a list of settings it can **check** at any time. That matters because Windows Update, driver installs and some apps quietly put settings back. `Check.cmd` shows exactly what moved, and `Apply.cmd` fixes only that.
+`pc-tuning` makes Windows faster and more responsive for games and creative work: telemetry and promotional apps off, no power saving on the graphics card, USB and network links, the Ultimate Performance power plan, Game DVR off. Optional settings go further, such as turning off memory integrity or removing the Nahimic audio layer.
+
+What sets it apart: most "optimizers" apply a pile of tweaks once and leave you guessing. `pc-tuning` keeps a list of settings it can **check** at any time. That matters because Windows Update, driver installs and some apps quietly put settings back. `Check.cmd` shows exactly what moved, and `Apply.cmd` fixes only that.
 
 The BIOS and the hardware can't be changed by a script, so each gets a guide: [BIOS](docs/bios.md) and [hardware](docs/hardware.md).
 

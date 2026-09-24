@@ -9,7 +9,9 @@
 
 *English version: [README.md](README.md)*
 
-La plupart des « optimiseurs » appliquent une pile de réglages une fois pour toutes, puis te laissent deviner ce qu'il en reste. `pc-tuning` tient une liste de réglages qu'il sait **vérifier** à tout moment. C'est important, car Windows Update, les installations de pilotes et certaines applis remettent des réglages en place sans prévenir. `Check.cmd` montre exactement ce qui a bougé, et `Apply.cmd` ne corrige que ça.
+`pc-tuning` rend Windows plus rapide et plus réactif pour le jeu et la création : télémétrie et applis promotionnelles coupées, plus d'économies d'énergie sur la carte graphique, l'USB et le réseau, plan d'alimentation « Performances optimales », Game DVR coupé. Des options vont plus loin, comme couper l'intégrité de la mémoire ou retirer la couche audio Nahimic.
+
+Ce qui le distingue : la plupart des « optimiseurs » appliquent une pile de réglages une fois pour toutes, puis te laissent deviner ce qu'il en reste. `pc-tuning` tient une liste de réglages qu'il sait **vérifier** à tout moment. C'est important, car Windows Update, les installations de pilotes et certaines applis remettent des réglages en place sans prévenir. `Check.cmd` montre exactement ce qui a bougé, et `Apply.cmd` ne corrige que ça.
 
 Le BIOS et le matériel ne se règlent pas par script : chacun a son guide, [BIOS](docs/bios.fr.md) et [matériel](docs/hardware.fr.md).
 
