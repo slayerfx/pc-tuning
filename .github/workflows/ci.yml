@@ -1,0 +1,43 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  checks:
+    # pc-tuning targets Windows PowerShell 5.1, built into Windows: syntax and
+    # smoke tests run in it. The smoke tests only run Check and dry runs.
+    runs-on: windows-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Syntax (Windows PowerShell 5.1)
+        shell: powershell
+        run: |
+          $failed = $false
+          foreach ($f in Get-ChildItem -Recurse -Filter *.ps1) {
+            $errors = $null
+            [void][System.Management.Automation.Language.Parser]::ParseFile($f.FullName, [ref]$null, [ref]$errors)
+            foreach ($e in $errors) {
+              Write-Output "::error file=$($f.Name),line=$($e.Extent.StartLineNumber)::$($e.Message)"
+              $failed = $true
+            }
+          }
+          Get-Content config.example.json -Raw | ConvertFrom-Json | Out-Null
+          if ($failed) { exit 1 }
+
+      - name: Lint (PSScriptAnalyzer)
+        shell: pwsh
+        run: |
+          if (-not (Get-Module -ListAvailable PSScriptAnalyzer)) { Install-Module PSScriptAnalyzer -Force -Scope CurrentUser }
+          $results = @(Invoke-ScriptAnalyzer -Path . -Recurse)
+          $results | Sort-Object Severity, ScriptName, Line | Format-Table Severity, RuleName, ScriptName, Line, Message -AutoSize -Wrap | Out-String -Width 220
+          $errors = @($results | Where-Object Severity -eq 'Error')
+          foreach ($e in $errors) { Write-Output "::error file=$($e.ScriptName),line=$($e.Line)::$($e.RuleName): $($e.Message)" }
+          if ($errors.Count) { exit 1 }
+
+      - name: Smoke test (Check and dry runs, English and French)
+        shell: powershell
+        run: .\tests\smoke-test.ps1

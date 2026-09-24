@@ -775,6 +775,8 @@ if ($Cfg.defender.excludeSteamLibraries -or @($Cfg.defender.extraExclusions).Cou
         Id = 'defender-exclusions'; Group = 'Defender'; Name = ((T 'Exclusions Defender ({0} dossiers)' 'Defender exclusions ({0} folders)') -f @(Get-WantedExclusions).Count)
         Test = {
             if (-not $IsAdmin) { return New-Result $null (T 'vérifiable seulement en administrateur' 'can only be checked as administrator') }
+            # Another antivirus turns Defender off: nothing to exclude then
+            if (-not (Get-MpPreference -ErrorAction SilentlyContinue)) { return New-Result $null (T 'Defender indisponible' 'Defender unavailable') }
             $missing = @(Get-MissingExclusions)
             if ($missing.Count -eq 0) { return New-Result $true $null }
             New-Result $false ((T 'manquantes : {0}' 'missing: {0}') -f ($missing -join ', '))
@@ -976,7 +978,8 @@ function Show-HardwareChecks {
 
     # BIOS: without latestBiosVersion in the config, the version is only shown
     $bios = Get-CimInstance Win32_BIOS
-    $text = "BIOS $($bios.SMBIOSBIOSVersion) ($($bios.ReleaseDate.ToString('yyyy-MM-dd')))"
+    $text = "BIOS $($bios.SMBIOSBIOSVersion)"
+    if ($bios.ReleaseDate) { $text += " ($($bios.ReleaseDate.ToString('yyyy-MM-dd')))" }
     $latest = "$($Cfg.checks.latestBiosVersion)"
     if (-not $latest) { Write-Info ((T '{0} : compare avec le site du fabricant de ta carte mère' '{0}: compare with your motherboard maker''s website') -f $text) }
     elseif ([string]::CompareOrdinal("$($bios.SMBIOSBIOSVersion)".ToUpper(), $latest.ToUpper()) -lt 0) { Todo $text ((T 'la version {0} est disponible' 'version {0} is available') -f $latest) }
@@ -1037,10 +1040,14 @@ function Show-HardwareChecks {
         }
     }
 
+    # Drivers without a date (virtual machines) are skipped
     $drivers = @()
-    if ($Adapter) { $drivers += [pscustomobject]@{ Name = $Adapter.InterfaceDescription; Version = $Adapter.DriverVersionString; Date = [datetime]$Adapter.DriverDate } }
+    $date = [datetime]::MinValue
+    if ($Adapter -and [datetime]::TryParse("$($Adapter.DriverDate)", [ref]$date)) {
+        $drivers += [pscustomobject]@{ Name = $Adapter.InterfaceDescription; Version = $Adapter.DriverVersionString; Date = $date }
+    }
     foreach ($p in @(Get-CimInstance Win32_PnPSignedDriver -Filter "DeviceName LIKE '%Management Engine Interface%'" -ErrorAction SilentlyContinue)) {
-        $drivers += [pscustomobject]@{ Name = $p.DeviceName; Version = $p.DriverVersion; Date = $p.DriverDate }
+        if ($p.DriverDate) { $drivers += [pscustomobject]@{ Name = $p.DeviceName; Version = $p.DriverVersion; Date = $p.DriverDate } }
     }
     foreach ($d in $drivers) {
         $text = (T 'Pilote {0} : {1} ({2})' 'Driver {0}: {1} ({2})') -f $d.Name, $d.Version, $d.Date.ToString('yyyy-MM-dd')

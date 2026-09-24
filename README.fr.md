@@ -1,5 +1,6 @@
 # pc-tuning
 
+[![CI](https://github.com/slayerfx/pc-tuning/actions/workflows/ci.yml/badge.svg)](https://github.com/slayerfx/pc-tuning/actions/workflows/ci.yml)
 [![Licence : MIT](https://img.shields.io/badge/Licence-MIT-green.svg)](LICENSE)
 [![PowerShell 5.1](https://img.shields.io/badge/PowerShell-5.1-5391FE.svg)](#prérequis)
 [![Windows 10 | 11](https://img.shields.io/badge/Windows-10%20%7C%2011-0078D4.svg)](#prérequis)
