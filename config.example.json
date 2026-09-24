@@ -1,0 +1,46 @@
+{
+  "disableMemoryIntegrity": false,
+  "removeNahimic": false,
+  "disableTelemetry": true,
+  "removeApps": [
+    "Microsoft.BingNews",
+    "Microsoft.BingWeather",
+    "Microsoft.MicrosoftSolitaireCollection",
+    "Clipchamp.Clipchamp",
+    "Microsoft.GetHelp",
+    "Microsoft.WindowsFeedbackHub",
+    "Microsoft.Todos",
+    "Microsoft.Windows.DevHome",
+    "Microsoft.PowerAutomateDesktop",
+    "Microsoft.MountainDwellings",
+    "Microsoft.StartExperiencesApp",
+    "MicrosoftWindows.Client.WebExperience",
+    "Microsoft.WidgetsPlatformRuntime",
+    "MSTeams"
+  ],
+  "extraApps": [],
+  "manualServices": ["DusmSvc", "InventorySvc"],
+  "disableGameDvr": true,
+  "hardwareGpuScheduling": true,
+  "desktopPowerPlan": true,
+  "disableHibernation": false,
+  "snappierInterface": true,
+  "disableTransparency": false,
+  "disableMouseAcceleration": true,
+  "disableChromeAutostart": false,
+  "wallpaperEnginePause": true,
+  "network": {
+    "adapter": "",
+    "dnsServers": [],
+    "disablePowerSaving": true,
+    "disableThrottling": true
+  },
+  "defender": {
+    "excludeSteamLibraries": false,
+    "extraExclusions": []
+  },
+  "checks": {
+    "latestBiosVersion": "",
+    "minLinkSpeedMbps": 1000
+  }
+}
